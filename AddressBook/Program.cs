@@ -1,33 +1,54 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AddressBook
 {
     class Program
     {/// <summary>
-    /// Address book program - UC1 creating contact in addressbook
+    /// Address book program - UC2 able to Add new contact to addressbook
     /// storing name address phone number email
     /// </summary>
     /// <param name="args"></param>
         static void Main(string[] args)
         {
-            Contacts contacts = new Contacts
+            Contacts Person1 = new Contacts
             {
-                FirstName = "Sohail",
-                LastName = "Ahamed",
-                Address = "SR nagar",
-                City = "Hospet",
-                State = "Karnataka",
-                ZipCode = 583201,
+                FirstName = "John",
+                LastName = "Ben",
+                Address = "Noida",
+                City = "Ghazipur",
+                State = "Delhi",
+                ZipCode = 110096,
                 PhoneNumber = 1234567890,
-                Email = "sohailqureshi82@gmail.com"
+                Email = "John123@mail.com"
             };
-            contacts.ValidateContactDetails();
-            Console.WriteLine("Contact Details: ");
-            Console.WriteLine($"Full Name: {contacts.FirstName + contacts.LastName} ");
-            Console.WriteLine($"Phone Number: {contacts.PhoneNumber} ");
-            Console.WriteLine($"Address: {contacts.Address} \n \t{contacts.City} {contacts.State} \n \t{contacts.ZipCode} ");
-            Console.WriteLine($"Email: {contacts.Email} ");
-
+            Contacts Person2 = new Contacts
+            {
+                FirstName = "Joseph",
+                LastName = "Joe",
+                Address = "Juhu",
+                City = "Mumbai",
+                State = "Maharastra",
+                ZipCode = 400049,
+                PhoneNumber = 1234567890,
+                Email = "123Joe@mail.com"
+            };
+            Person1.ValidateContactDetails();
+            Person2.ValidateContactDetails();
+            //storing contact details to List
+            List<Contacts> contactsList = new List<Contacts>();
+            contactsList.Add(Person1);
+            contactsList.Add(Person2);
+            //display Contacts stored in List
+            foreach (Contacts i in contactsList)
+            {
+                Console.WriteLine();
+                Console.WriteLine("Full name is :{0} {1} ", i.FirstName, i.LastName);
+                Console.WriteLine("Address is :{0}, {1}, {2} {3}", i.Address,i.City,i.State,i.ZipCode);
+                Console.WriteLine("Phone Number :{0}", i.PhoneNumber);
+                Console.WriteLine("Email :{0}", i.Email);
+               
+            }
         }
     }
 }
