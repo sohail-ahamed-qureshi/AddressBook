@@ -39,14 +39,14 @@ namespace AddressBook
                     DisplayChoice();
                     input = Convert.ToInt32(Console.ReadLine());
                 }
+                ContactView contactView = new ContactView();
+                //hard coded contacts initializing.
+                contactView.ContactViewMethod();
                 switch (input)
                 {
                     case 1:
                         //display all contact lists
-                        ContactView contactView = new ContactView();
-                        contactView.ContactViewMethod();
                         contactView.Listview();
-
                         //Options for user
                         DisplayChoice();
                         Selection();
@@ -54,12 +54,19 @@ namespace AddressBook
                     case 2:
                         //Add new Contact to list.
                         Console.WriteLine("case 2:");
+                        //Add New Contact
+                        contactView.NewContact();
+                        //display contacts count
+                        Console.WriteLine($" Contacts: {ContactView.contactsList.Count}");
+                        //display list
+                        contactView.Listview();
+                        //Options for user
                         DisplayChoice();
                         Selection();
                         break;
                     case 3:
                         //Edit a contact from list
-                        Console.WriteLine("case 3:");
+                        Console.WriteLine("Edit a Contact");
                         DisplayChoice();
                         Selection();
                         break;
