@@ -17,7 +17,7 @@ namespace AddressBook
                 Console.WriteLine("press 1 to view Contact list.");
                 Console.WriteLine("press 2 to Add new Contact to list.");
                 Console.WriteLine("press 3 to Edit Contact in list.");
-                Console.WriteLine("press 4 to Edit Contact in list.");
+                Console.WriteLine("press 4 to Delete a Contact from list.");
                 Console.WriteLine("press 5 to Exit.");
             }
             catch (Exception e)
