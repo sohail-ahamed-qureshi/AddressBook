@@ -75,29 +75,35 @@ namespace AddressBook
         /// </summary>
         public void NewContact()
         {
-            Contacts Person3 = new Contacts();
-            Console.WriteLine("Add a new contact.");
-            Console.WriteLine("Enter First Name: ");
-            Person3.FirstName = Console.ReadLine();
-            Console.WriteLine("Enter Last Name: ");
-            Person3.LastName = Console.ReadLine();
-            Console.WriteLine("Enter Address: ");
-            Person3.Address = Console.ReadLine();
-            Console.WriteLine("Enter City: ");
-            Person3.City = Console.ReadLine();
-            Console.WriteLine("Enter State: ");
-            Person3.State = Console.ReadLine();
-            Console.WriteLine("Enter ZipCode: ");
-            Person3.ZipCode = Convert.ToInt32(Console.ReadLine());
-            Console.WriteLine("Enter Phone Number: ");
-            Person3.PhoneNumber = Convert.ToInt64(Console.ReadLine());
-            Console.WriteLine("Enter Email: ");
-            Person3.Email = Console.ReadLine();
-            //validating contact details
-            Person3.ValidateContactDetails();
-            //adding contact to list
-            contactsList.Add(Person3);
-          
+            try
+            {
+                Contacts Person3 = new Contacts();
+                Console.WriteLine("Add a new contact.");
+                Console.WriteLine("Enter First Name: ");
+                Person3.FirstName = Console.ReadLine();
+                Console.WriteLine("Enter Last Name: ");
+                Person3.LastName = Console.ReadLine();
+                Console.WriteLine("Enter Address: ");
+                Person3.Address = Console.ReadLine();
+                Console.WriteLine("Enter City: ");
+                Person3.City = Console.ReadLine();
+                Console.WriteLine("Enter State: ");
+                Person3.State = Console.ReadLine();
+                Console.WriteLine("Enter ZipCode: ");
+                Person3.ZipCode = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Enter Phone Number: ");
+                Person3.PhoneNumber = Convert.ToInt64(Console.ReadLine());
+                Console.WriteLine("Enter Email: ");
+                Person3.Email = Console.ReadLine();
+                //validating contact details
+                Person3.ValidateContactDetails();
+                //adding contact to list
+                contactsList.Add(Person3);
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
     }
 }
