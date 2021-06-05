@@ -70,7 +70,8 @@ namespace AddressBook
                         break;
                     case 4:
                         //delete a contact from list
-                        Console.WriteLine("case 4:");
+                        Console.WriteLine("Delete a Contact");
+                        contactView.DeleteContact();
                         DisplayChoice();
                         Selection();
                         break;

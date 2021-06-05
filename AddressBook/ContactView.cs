@@ -40,10 +40,6 @@ namespace AddressBook
             contactsList.Add(Person2);
 
         }
-        public List<Contacts> GetLIst()
-        {
-            return contactsList;
-        }
 
         public void Listview()
         {
@@ -104,7 +100,51 @@ namespace AddressBook
             {
                 Console.WriteLine(e.Message);
                 Console.WriteLine("New contact entry aborted.");
+            }
+        }
 
+        /// <summary>
+        /// delete a contact method using an index of list entered by user.
+        /// check for contacts available in list
+        /// if no contacts display message and end.
+        /// else ask for delete using index of list.
+        /// </summary>
+        public void DeleteContact()
+        {
+            try
+            {
+                if(contactsList.Count == 0)
+                {
+                    Console.WriteLine("No Contacts available to Delete");
+                }
+                else
+                {
+                    int i = 0;
+                    Console.WriteLine("Select the contact you want to Delete : ");
+                    foreach (Contacts contacts in ContactView.contactsList)
+                    {
+
+                        Console.WriteLine($" press {i} for {contacts.FirstName}");
+                        i++;
+                    }
+
+                    {
+                        Console.WriteLine();
+                    }
+                    int sel = Convert.ToInt32(Console.ReadLine());
+                    while (sel >= i || sel < 0)
+                    {
+                        Console.WriteLine("invalid choice made,");
+                        Console.WriteLine("enter a valid choice");
+                        sel = Convert.ToInt32(Console.ReadLine());
+                    }
+                    contactsList.RemoveAt(sel);
+                    Console.WriteLine("Contact deleted successfully!!");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
             }
         }
     }
