@@ -5,8 +5,8 @@ namespace AddressBook
 {
     class Program
     {/// <summary>
-     /// Address book program - UC4 able to Edit a contact from addressbook
-     /// and replace the details from old to new details.
+     /// Address book program - UC5 able to Add multiple persons to addressbook
+     /// 
      /// </summary>
      /// <param name="args"></param>
 
@@ -19,6 +19,14 @@ namespace AddressBook
             Display display = new Display();
             display.DisplayChoice();
             display.Selection();
+
+            //--------UC5-------------//
+            // adding multiple persons to a contact book//
+            //first create a temporary list which add multiple persons details
+            //then temporary list is added to main contact book.
+            //----------UC5----------//
+
+
         }
     }
 }

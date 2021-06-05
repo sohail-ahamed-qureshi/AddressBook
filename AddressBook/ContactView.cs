@@ -4,7 +4,16 @@ using System.Text;
 
 namespace AddressBook
 {
-    class ContactView
+    interface IOperationalMethods
+    {
+        public void ContactViewMethod();
+        public void Listview();
+        public void NewContact();
+        public void DeleteContact();
+        public void EditContact();
+        
+    }
+    class ContactView : IOperationalMethods
     {
        public static List<Contacts> contactsList = new List<Contacts>();
 
@@ -174,13 +183,7 @@ namespace AddressBook
                         sel = Convert.ToInt32(Console.ReadLine());
                     }
                     Console.WriteLine("-------Before editing-------");
-                        Console.WriteLine();
-                        Console.WriteLine("Contacts");
-                        Console.WriteLine($"Full Name: {contactsList[sel].FirstName} {contactsList[sel].LastName}");
-                        Console.WriteLine($"Phone Number: {contactsList[sel].PhoneNumber}");
-                        Console.WriteLine($"Email: {contactsList[sel].Email}");
-                        Console.WriteLine($"Address: {contactsList[sel].Address}, \n \t{contactsList[sel].City}, {contactsList[sel].State}, {contactsList[sel].ZipCode}");
-                    Console.WriteLine();
+                    CustomView(sel);
                     Console.WriteLine("Enter new Details");
                     Contacts Person3 = new Contacts();
                     Console.WriteLine("Add a new contact.");
@@ -210,18 +213,24 @@ namespace AddressBook
                     Console.WriteLine("Contact edit successful!!");
 
                     Console.WriteLine("-------After editing-------");
-                    Console.WriteLine();
-                    Console.WriteLine("Contacts");
-                    Console.WriteLine($"Full Name: {contactsList[sel].FirstName} {contactsList[sel].LastName}");
-                    Console.WriteLine($"Phone Number: {contactsList[sel].PhoneNumber}");
-                    Console.WriteLine($"Email: {contactsList[sel].Email}");
-                    Console.WriteLine($"Address: {contactsList[sel].Address}, \n \t{contactsList[sel].City}, {contactsList[sel].State}, {contactsList[sel].ZipCode}");
+                    CustomView(sel);
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
+        }
+
+        private void CustomView(int sel)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Contacts");
+            Console.WriteLine($"Full Name: {contactsList[sel].FirstName} {contactsList[sel].LastName}");
+            Console.WriteLine($"Phone Number: {contactsList[sel].PhoneNumber}");
+            Console.WriteLine($"Email: {contactsList[sel].Email}");
+            Console.WriteLine($"Address: {contactsList[sel].Address}, \n \t{contactsList[sel].City}, {contactsList[sel].State}, {contactsList[sel].ZipCode}");
+            Console.WriteLine();
         }
     }
 }
