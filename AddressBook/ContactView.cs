@@ -103,6 +103,8 @@ namespace AddressBook
             catch(Exception e)
             {
                 Console.WriteLine(e.Message);
+                Console.WriteLine("New contact entry aborted.");
+
             }
         }
     }

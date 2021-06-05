@@ -12,10 +12,15 @@ namespace AddressBook
 
         static void Main(string[] args)
         {
-            //display selection for User.
-            Display display = new Display();
-            display.DisplayChoice();
-            display.Selection();
+            //ContactView contactView = new ContactView();
+            ////hard coded contacts initializing.
+            //contactView.ContactViewMethod();
+            ////display selection for User.
+            //Display display = new Display();
+            //display.DisplayChoice();
+            //display.Selection();
+
+
         }
     }
 }

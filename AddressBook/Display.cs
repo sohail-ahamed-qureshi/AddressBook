@@ -40,8 +40,6 @@ namespace AddressBook
                     input = Convert.ToInt32(Console.ReadLine());
                 }
                 ContactView contactView = new ContactView();
-                //hard coded contacts initializing.
-                contactView.ContactViewMethod();
                 switch (input)
                 {
                     case 1:
