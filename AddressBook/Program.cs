@@ -6,7 +6,7 @@ namespace AddressBook
     class Program
     {/// <summary>
      /// Address book program - UC5 able to Add multiple persons to addressbook
-     /// 
+     /// using temporary list to add multiple persons and adding back list to main contactllist.
      /// </summary>
      /// <param name="args"></param>
 
@@ -19,14 +19,6 @@ namespace AddressBook
             Display display = new Display();
             display.DisplayChoice();
             display.Selection();
-
-            //--------UC5-------------//
-            // adding multiple persons to a contact book//
-            //first create a temporary list which add multiple persons details
-            //then temporary list is added to main contact book.
-            //----------UC5----------//
-
-
         }
     }
 }

@@ -4,8 +4,8 @@ using System.Text;
 
 namespace AddressBook
 {/// <summary>
-/// OOP's concepts for saving user details
-/// using Encapsulation, properties, Interface, Exceptions
+ /// OOP's concepts for saving user details
+ /// using Encapsulation, properties, Interface, Exceptions
  /// getting contacts from user 
  /// </summary>
     interface IContactDetails
@@ -96,6 +96,6 @@ namespace AddressBook
             {
                 Console.WriteLine("Error in Saving Details");
             }
-        }  
+        }
     }
 }

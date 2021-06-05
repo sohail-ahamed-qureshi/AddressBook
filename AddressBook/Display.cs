@@ -25,14 +25,13 @@ namespace AddressBook
                 Console.WriteLine(e.Message);
             }
         }
-
         public void Selection()
         {
             try
             {
                 //validation for input.
                 int input = Convert.ToInt32(Console.ReadLine());
-                while (input > 5 || input <= 0)
+                while (input > 6 || input <= 0)
                 {
                     Console.WriteLine("invalid input");
                     Console.WriteLine("Enter a valid input ");
@@ -77,6 +76,13 @@ namespace AddressBook
                         Selection();
                         break;
                     case 5:
+                        //adding multiple persons to contact list
+                        Console.WriteLine("Add multiple Persons to contacts.");
+                        contactView.MultipleContact();
+                        DisplayChoice();
+                        Selection();
+                        break;
+                    case 6:
                         //exit from program
                         Console.WriteLine("Exiting you safely...");
                         Console.WriteLine("Thank you.");
