@@ -5,8 +5,8 @@ namespace AddressBook
 {
     class Program
     {/// <summary>
-     /// Address book program - UC3 able to delete a contact from addressbook
-     /// deleting contact using index of list
+     /// Address book program - UC4 able to Edit a contact from addressbook
+     /// and replace the details from old to new details.
      /// </summary>
      /// <param name="args"></param>
 

@@ -38,7 +38,8 @@ namespace AddressBook
             //storing contact details to List
             contactsList.Add(Person1);
             contactsList.Add(Person2);
-
+            
+            
         }
 
         public void Listview()
@@ -127,10 +128,6 @@ namespace AddressBook
                         Console.WriteLine($" press {i} for {contacts.FirstName}");
                         i++;
                     }
-
-                    {
-                        Console.WriteLine();
-                    }
                     int sel = Convert.ToInt32(Console.ReadLine());
                     while (sel >= i || sel < 0)
                     {
@@ -140,6 +137,85 @@ namespace AddressBook
                     }
                     contactsList.RemoveAt(sel);
                     Console.WriteLine("Contact deleted successfully!!");
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+        }
+        /// <summary>
+        /// edit a contact using a index ask ask for details and replace
+        /// the details with appropriate details.
+        /// </summary>
+        public void EditContact()
+        {
+            try
+            {
+                if (contactsList.Count == 0)
+                {
+                    Console.WriteLine("No Contacts available to Edit");
+                }
+                else
+                {
+                    int i = 0;
+                    Console.WriteLine("Select the contact you want to Edit : ");
+                    foreach (Contacts contacts in ContactView.contactsList)
+                    {
+
+                        Console.WriteLine($" press {i} for {contacts.FirstName}");
+                        i++;
+                    }
+                    int sel = Convert.ToInt32(Console.ReadLine());
+                    while (sel >= i || sel < 0)
+                    {
+                        Console.WriteLine("invalid choice made,");
+                        Console.WriteLine("enter a valid choice");
+                        sel = Convert.ToInt32(Console.ReadLine());
+                    }
+                    Console.WriteLine("-------Before editing-------");
+                        Console.WriteLine();
+                        Console.WriteLine("Contacts");
+                        Console.WriteLine($"Full Name: {contactsList[sel].FirstName} {contactsList[sel].LastName}");
+                        Console.WriteLine($"Phone Number: {contactsList[sel].PhoneNumber}");
+                        Console.WriteLine($"Email: {contactsList[sel].Email}");
+                        Console.WriteLine($"Address: {contactsList[sel].Address}, \n \t{contactsList[sel].City}, {contactsList[sel].State}, {contactsList[sel].ZipCode}");
+                    Console.WriteLine();
+                    Console.WriteLine("Enter new Details");
+                    Contacts Person3 = new Contacts();
+                    Console.WriteLine("Add a new contact.");
+                    Console.WriteLine("Enter First Name: ");
+                    Person3.FirstName = Console.ReadLine();
+                    Console.WriteLine("Enter Last Name: ");
+                    Person3.LastName = Console.ReadLine();
+                    Console.WriteLine("Enter Address: ");
+                    Person3.Address = Console.ReadLine();
+                    Console.WriteLine("Enter City: ");
+                    Person3.City = Console.ReadLine();
+                    Console.WriteLine("Enter State: ");
+                    Person3.State = Console.ReadLine();
+                    Console.WriteLine("Enter ZipCode: ");
+                    Person3.ZipCode = Convert.ToInt32(Console.ReadLine());
+                    Console.WriteLine("Enter Phone Number: ");
+                    Person3.PhoneNumber = Convert.ToInt64(Console.ReadLine());
+                    Console.WriteLine("Enter Email: ");
+                    Person3.Email = Console.ReadLine();
+                    //validating contact details
+                    Person3.ValidateContactDetails();
+                    //removing contact
+                    contactsList.RemoveAt(sel);
+                    //adding new details of contact at list
+                    contactsList.Insert(sel,Person3);
+                    Console.WriteLine();
+                    Console.WriteLine("Contact edit successful!!");
+
+                    Console.WriteLine("-------After editing-------");
+                    Console.WriteLine();
+                    Console.WriteLine("Contacts");
+                    Console.WriteLine($"Full Name: {contactsList[sel].FirstName} {contactsList[sel].LastName}");
+                    Console.WriteLine($"Phone Number: {contactsList[sel].PhoneNumber}");
+                    Console.WriteLine($"Email: {contactsList[sel].Email}");
+                    Console.WriteLine($"Address: {contactsList[sel].Address}, \n \t{contactsList[sel].City}, {contactsList[sel].State}, {contactsList[sel].ZipCode}");
                 }
             }
             catch (Exception e)
