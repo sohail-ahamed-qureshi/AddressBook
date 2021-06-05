@@ -18,7 +18,8 @@ namespace AddressBook
                 Console.WriteLine("press 2 to Add new Contact to list.");
                 Console.WriteLine("press 3 to Edit Contact in list.");
                 Console.WriteLine("press 4 to Delete a Contact from list.");
-                Console.WriteLine("press 5 to Exit.");
+                Console.WriteLine("press 5 to Add Multiple persons to Contact list.");
+                Console.WriteLine("press 6 to Exit.");
             }
             catch (Exception e)
             {
@@ -49,8 +50,6 @@ namespace AddressBook
                         Selection();
                         break;
                     case 2:
-                        //Add new Contact to list.
-                        Console.WriteLine("case 2:");
                         //Add New Contact
                         contactView.NewContact();
                         //display contacts count

@@ -195,12 +195,6 @@ namespace AddressBook
             {
                 char input = AddPersonOption();
                 input = Char.ToUpper(input);
-                while (input == 'Y' || input == 'N')
-                {
-                    Console.WriteLine("Invalid input. enter valid choice.");
-                    input = Convert.ToChar(Console.ReadLine());
-                    input = Char.ToUpper(input);
-                }
                 switch (input)
                 {
                     case 'Y':
@@ -211,7 +205,10 @@ namespace AddressBook
                         break;
                     case 'N':
                         contactsList.AddRange(tempContactList);
-                        Console.WriteLine("Successfully Added Contacts to AddressBook!!");
+                        break;
+                    default:
+                        Console.WriteLine("Invalid input. enter valid choice.");
+                        MultipleContact();
                         break;
                 }
             }
@@ -246,25 +243,25 @@ namespace AddressBook
             Console.WriteLine();
         }
 
-        public void CustomInput(Contacts Person3)
+        public void CustomInput(Contacts Person)
         {
             Console.WriteLine("Add a new contact.");
             Console.WriteLine("Enter First Name: ");
-            Person3.FirstName = Console.ReadLine();
+            Person.FirstName = Console.ReadLine();
             Console.WriteLine("Enter Last Name: ");
-            Person3.LastName = Console.ReadLine();
+            Person.LastName = Console.ReadLine();
             Console.WriteLine("Enter Address: ");
-            Person3.Address = Console.ReadLine();
+            Person.Address = Console.ReadLine();
             Console.WriteLine("Enter City: ");
-            Person3.City = Console.ReadLine();
+            Person.City = Console.ReadLine();
             Console.WriteLine("Enter State: ");
-            Person3.State = Console.ReadLine();
+            Person.State = Console.ReadLine();
             Console.WriteLine("Enter ZipCode: ");
-            Person3.ZipCode = Convert.ToInt32(Console.ReadLine());
+            Person.ZipCode = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Enter Phone Number: ");
-            Person3.PhoneNumber = Convert.ToInt64(Console.ReadLine());
+            Person.PhoneNumber = Convert.ToInt64(Console.ReadLine());
             Console.WriteLine("Enter Email: ");
-            Person3.Email = Console.ReadLine();
+            Person.Email = Console.ReadLine();
         }
     }
 }
