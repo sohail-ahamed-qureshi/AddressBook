@@ -19,6 +19,7 @@ namespace AddressBook
             Display display = new Display();
             display.DisplayChoice();
             display.Selection();
+           
         }
     }
 }

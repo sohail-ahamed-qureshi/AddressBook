@@ -257,9 +257,35 @@ namespace AddressBook
             Console.WriteLine("Enter State: ");
             Person.State = Console.ReadLine();
             Console.WriteLine("Enter ZipCode: ");
-            Person.ZipCode = Convert.ToInt32(Console.ReadLine());
+            var input = Console.ReadLine();
+            while (true)
+            {
+                if (Int32.TryParse(input, out _))
+                {
+                    Person.ZipCode = Convert.ToInt32(input);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("invalid Input!! try again.");
+                    input = Console.ReadLine();
+                }
+            }
             Console.WriteLine("Enter Phone Number: ");
-            Person.PhoneNumber = Convert.ToInt64(Console.ReadLine());
+            input = Console.ReadLine();
+            while (true)
+            {
+                if (Int64.TryParse(input, out _))
+                {
+                    Person.PhoneNumber = Convert.ToInt64(input);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("invalid Input!! try again.");
+                    input = Console.ReadLine();
+                }
+            }
             Console.WriteLine("Enter Email: ");
             Person.Email = Console.ReadLine();
         }
