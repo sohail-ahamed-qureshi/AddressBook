@@ -19,20 +19,23 @@ namespace AddressBook
                 Console.WriteLine("press 3 to Edit Contact in list.");
                 Console.WriteLine("press 4 to Delete a Contact from list.");
                 Console.WriteLine("press 5 to Add Multiple persons to Contact list.");
-                Console.WriteLine("press 6 to Exit.");
+                Console.WriteLine("press 6 to Add Multiple AddressBook");
+                Console.WriteLine("press 7 to View AddressBook");
+                Console.WriteLine("press 8 to Exit.");
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
         }
+        MultipleAddressBook multipleAddressBook = new MultipleAddressBook();
         public void Selection()
         {
             try
             {
                 //validation for input.
                 int input = Convert.ToInt32(Console.ReadLine());
-                while (input > 6 || input <= 0)
+                while (input > 8 || input <= 0)
                 {
                     Console.WriteLine("invalid input");
                     Console.WriteLine("Enter a valid input ");
@@ -82,11 +85,27 @@ namespace AddressBook
                         Selection();
                         break;
                     case 6:
+                        //adding multiple Address Book
+                        Console.WriteLine("Add Multiple address books");
+                        Console.WriteLine("Enter name of addressbook");
+                        string name = Console.ReadLine();
+                        multipleAddressBook.AddAddressBook(name);
+                        //multipleAddressBook.DisplayAddressBook();
+                        DisplayChoice();
+                        Selection();
+                        break;
+                    case 7:
+                        //view Address Book
+                        Console.WriteLine("View address books");
+                        multipleAddressBook.ViewAddressBooks();
+                        DisplayChoice();
+                        Selection();
+                        break;
+                    case 8:
                         //exit from program
                         Console.WriteLine("Exiting you safely...");
                         Console.WriteLine("Thank you.");
-                        break;
-                        
+                        break;                        
                 }
             }
             catch (Exception e)

@@ -15,30 +15,119 @@ namespace AddressBook
     class Contacts : IContactDetails
     {
         //variables
-        readonly private string firstName;
-        readonly private string lastName;
-        readonly private string address;
-        readonly private string city;
-        readonly private string state;
-        readonly private int zipCode;
-        readonly private long phoneNumber;
-        readonly private string email;
+        private string firstName;
+        private string lastName;
+        private string address;
+        private string city;
+        private string state;
+        private int zipCode;
+        private long phoneNumber;
+        private string email;
 
         //properties
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Address { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public int ZipCode { get; set; }
-        public long PhoneNumber { get; set; }
-        public string Email { get; set; }
+        public string FirstName
+        {
+            get
+            {
+                return firstName;
+            }
+            set
+            {
+                firstName = value;
+            }
+        }
+        public string LastName
+        {
+            get
+            {
+                return lastName;
+            }
+            set
+            {
+                lastName = value;
+            }
+        }
+        public string Address
+        {
+            get
+            {
+                return address;
+            }
+            set
+            {
+                address = value;
+            }
+        }
+
+        public string City
+        {
+            get
+            {
+                return city;
+            }
+
+            set
+            {
+                city = value;
+            }
+        }
+
+        public string State
+        {
+            get
+            {
+                return state;
+            }
+
+            set
+            {
+                state = value;
+            }
+        }
+        public int ZipCode
+        {
+            get
+            {
+                return zipCode;
+            }
+
+            set
+            {
+                zipCode = value;
+            }
+        }
+        public long PhoneNumber
+        {
+            get
+            {
+                return phoneNumber;
+            }
+
+            set
+            {
+                phoneNumber = value;
+            }
+        }
+        public string Email 
+        {
+            get
+            {
+                return email;
+            }
+
+            set 
+            {
+                email = value;
+            }
+        }
 
         private bool ValidateFullName(string firstName, string lastName)
         {
+            FirstName = firstName;
+            LastName = lastName;
             try
             {
-                if (firstName != " " && lastName != " ")
+                if (FirstName != " " && LastName != " ")
                     return true;
                 else
                     return false;
@@ -52,9 +141,13 @@ namespace AddressBook
 
         private bool ValidateAddress(string address, string city, string state, int zipCode)
         {
+            Address = address;
+            City = city;
+            State = state;
+            ZipCode = zipCode;
             try
             {
-                if (address != " " && city != " " && state != " " && zipCode != 0)
+                if (Address != " " && City != " " && State != " " && ZipCode != 0)
                     return true;
                 else
                     return false;
@@ -67,9 +160,11 @@ namespace AddressBook
         }
         private bool ValidateContactNumbers(long phoneNumber, string email)
         {
+            PhoneNumber = phoneNumber;
+            Email = email;
             try
             {
-                if (phoneNumber != 0 && email != " ")
+                if (PhoneNumber != 0 && Email != " ")
                     return true;
                 else
                     return false;

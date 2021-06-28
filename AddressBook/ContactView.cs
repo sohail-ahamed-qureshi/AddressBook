@@ -11,14 +11,14 @@ namespace AddressBook
         public void NewContact();
         public void DeleteContact();
         public void EditContact();
-
     }
     class ContactView : IOperationalMethods
     {
-        public static List<Contacts> contactsList = new List<Contacts>();
+        public static List<Contacts> contactsList;
         public Contacts Person3 = new Contacts();
         public void ContactViewMethod()
         {
+            contactsList = new List<Contacts>();
             Contacts Person1 = new Contacts
             {
                 FirstName = "John",
@@ -47,6 +47,7 @@ namespace AddressBook
             contactsList.Add(Person1);
             contactsList.Add(Person2);
         }
+
         /// <summary>
         /// Display Contact details template.
         /// </summary>
