@@ -6,52 +6,18 @@ namespace AddressBook
 {
     interface IOperationalMethods
     {
-        public void ContactViewMethod();
-        public void Listview();
-        public void NewContact();
-        public void DeleteContact();
-        public void EditContact();
+        public void Listview(List<Contacts> contactsList);
+        public Contacts NewContact();
+        public void DeleteContact(List<Contacts> contactsList);
+        public void EditContact(List<Contacts> contactsList);
     }
     class ContactView : IOperationalMethods
     {
-        public static List<Contacts> contactsList;
         public Contacts Person3 = new Contacts();
-        public void ContactViewMethod()
-        {
-            contactsList = new List<Contacts>();
-            Contacts Person1 = new Contacts
-            {
-                FirstName = "John",
-                LastName = "Ben",
-                Address = "Noida",
-                City = "Ghazipur",
-                State = "Delhi",
-                ZipCode = 110096,
-                PhoneNumber = 1234567890,
-                Email = "John123@mail.com"
-            };
-            Contacts Person2 = new Contacts
-            {
-                FirstName = "Joseph",
-                LastName = "Joe",
-                Address = "Juhu",
-                City = "Mumbai",
-                State = "Maharastra",
-                ZipCode = 400049,
-                PhoneNumber = 1234567890,
-                Email = "123Joe@mail.com"
-            };
-            Person1.ValidateContactDetails();
-            Person2.ValidateContactDetails();
-            //storing contact details to List
-            contactsList.Add(Person1);
-            contactsList.Add(Person2);
-        }
-
         /// <summary>
         /// Display Contact details template.
         /// </summary>
-        public void Listview()
+        public void Listview(List<Contacts> contactsList)
         {
             try
             {
@@ -78,7 +44,7 @@ namespace AddressBook
         /// <summary>
         /// New contact method - ask user to enter all details. using console
         /// </summary>
-        public void NewContact()
+        public Contacts NewContact()
         {
             try
             {
@@ -87,13 +53,15 @@ namespace AddressBook
                 //validating contact details
                 Person3.ValidateContactDetails();
                 //adding contact to list
-                contactsList.Add(Person3);
+                //contactsList.Add(Person3);
+                return Person3;
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
                 Console.WriteLine("New contact entry aborted.");
             }
+            return null;
         }
 
         /// <summary>
@@ -102,7 +70,7 @@ namespace AddressBook
         /// if no contacts display message and end.
         /// else ask for delete using index of list.
         /// </summary>
-        public void DeleteContact()
+        public void DeleteContact(List<Contacts> contactsList)
         {
             try
             {
@@ -114,7 +82,7 @@ namespace AddressBook
                 {
                     int i = 0;
                     Console.WriteLine("Select the contact you want to Delete : ");
-                    foreach (Contacts contacts in ContactView.contactsList)
+                    foreach (Contacts contacts in contactsList)
                     {
                         Console.WriteLine($" press {i} for {contacts.FirstName}");
                         i++;
@@ -139,7 +107,7 @@ namespace AddressBook
         /// edit a contact using a index ask ask for details and replace
         /// the details with appropriate details.
         /// </summary>
-        public void EditContact()
+        public void EditContact(List<Contacts> contactsList)
         {
             try
             {
@@ -151,7 +119,7 @@ namespace AddressBook
                 {
                     int i = 0;
                     Console.WriteLine("Select the contact you want to Edit : ");
-                    foreach (Contacts contacts in ContactView.contactsList)
+                    foreach (Contacts contacts in contactsList)
                     {
 
                         Console.WriteLine($" press {i} for {contacts.FirstName}");
@@ -165,7 +133,7 @@ namespace AddressBook
                         sel = Convert.ToInt32(Console.ReadLine());
                     }
                     Console.WriteLine("-------Before editing-------");
-                    CustomView(sel);
+                    CustomView(sel, contactsList);
                     Console.WriteLine("Enter new Details");
                     //global object 'Person3' is used.//
                     CustomInput(Person3);
@@ -178,54 +146,13 @@ namespace AddressBook
                     Console.WriteLine();
                     Console.WriteLine("Contact edit successful!!");
                     Console.WriteLine("-------After editing-------");
-                    CustomView(sel);
+                    CustomView(sel, contactsList);
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-        }
-        /// <summary>
-        /// Add multiple persons to contact.
-        /// </summary>
-        private List<Contacts> tempContactList = new List<Contacts>();
-        public void MultipleContact()
-        {
-            try
-            {
-                char input = AddPersonOption();
-                input = Char.ToUpper(input);
-                switch (input)
-                {
-                    case 'Y':
-                        CustomInput(Person3);
-                        Person3.ValidateContactDetails();
-                        tempContactList.Add(Person3);
-                        MultipleContact();
-                        break;
-                    case 'N':
-                        contactsList.AddRange(tempContactList);
-                        break;
-                    default:
-                        Console.WriteLine("Invalid input. enter valid choice.");
-                        MultipleContact();
-                        break;
-                }
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
-        }
-
-        private char AddPersonOption()
-        {
-            Console.WriteLine("Add another Person?");
-            Console.WriteLine("type Y/y for YES.");
-            Console.WriteLine("type N/n for NO");
-            char input = Convert.ToChar(Console.ReadLine());
-            return input;
         }
 
         /// <summary>
@@ -233,7 +160,7 @@ namespace AddressBook
         /// sel- is parameter that passes appropriate selected contact index.
         /// </summary>
         /// <param name="sel"></param>
-        private void CustomView(int sel)
+        private void CustomView(int sel, List<Contacts> contactsList)
         {
             Console.WriteLine();
             Console.WriteLine("Contacts");

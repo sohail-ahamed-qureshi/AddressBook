@@ -9,33 +9,79 @@ namespace AddressBook
     /// </summary>
     public class Display
     {
+        MultipleAddressBook multipleAddressBook = new MultipleAddressBook();
+        /// <summary>
+        ///Display user options for AddressBook.
+        /// </summary>
+        public void DisplayChoiceAddressBook()
+        {
+
+            Console.WriteLine("Press 1. to Add New Addressbook");
+            Console.WriteLine("Press 2. to View All Addressbooks");
+            Console.WriteLine("Press 3. to Exit Program");
+            int mainInput = Convert.ToInt32(Console.ReadLine());
+            while (mainInput > 3 || mainInput < 0)
+            {
+                Console.WriteLine("invalid input");
+                Console.WriteLine("Enter a valid input ");
+                mainInput = Convert.ToInt32(Console.ReadLine());
+            }
+            switch (mainInput)
+            {
+                case 1:
+                    //add new addressBook
+                    Console.WriteLine("Add address book: ");
+                    Console.WriteLine("Enter name of addressbook: ");
+                    string addressBookName = Console.ReadLine();
+                    bool result = multipleAddressBook.AddAddressBook(addressBookName);
+                    if (!result)
+                        DisplayChoiceAddressBook();
+                    //multipleAddressBook.DisplayAddressBook();
+                    DisplayChoice();
+                    Selection(addressBookName);
+                    break;
+                case 2:
+                    //view addressBook
+                    addressBookName = multipleAddressBook.ViewAddressBooks();
+                    if(addressBookName == null)
+                        DisplayChoiceAddressBook();
+                    DisplayChoice();
+                    Selection(addressBookName);
+                    break;
+                case 3:
+                    //exit the program
+                    Console.WriteLine("Exiting you safely...");
+                    Console.WriteLine("Thank you.");
+                    break;
+                default:
+                    Console.WriteLine("Invalid option selected, Try agian!!");
+                    break;
+            }
+        }
+        /// <summary>
+        /// user input display choice for crud operations in contacts
+        /// </summary>
         public void DisplayChoice()
         {
-            try
-            {
                 Console.WriteLine();
                 Console.WriteLine("press 1 to view Contact list.");
                 Console.WriteLine("press 2 to Add new Contact to list.");
                 Console.WriteLine("press 3 to Edit Contact in list.");
                 Console.WriteLine("press 4 to Delete a Contact from list.");
-                Console.WriteLine("press 5 to Add Multiple persons to Contact list.");
-                Console.WriteLine("press 6 to Add Multiple AddressBook");
-                Console.WriteLine("press 7 to View AddressBook");
-                Console.WriteLine("press 8 to Exit.");
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+                Console.WriteLine("press 5 to go back.");
         }
-        MultipleAddressBook multipleAddressBook = new MultipleAddressBook();
-        public void Selection()
+        /// <summary>
+        /// switch case statement process for functionality performs crud operations for contacts
+        /// </summary>
+        /// <param name="addressBookName"> name of the addressbook</param>
+        public void Selection(string addressBookName)
         {
             try
             {
+                Dictionary<string, List<Contacts>> addressBook = multipleAddressBook.GetAddressBook();
                 //validation for input.
                 int input = Convert.ToInt32(Console.ReadLine());
-                while (input > 8 || input <= 0)
+                while (input > 7 || input <= 0)
                 {
                     Console.WriteLine("invalid input");
                     Console.WriteLine("Enter a valid input ");
@@ -43,76 +89,60 @@ namespace AddressBook
                     input = Convert.ToInt32(Console.ReadLine());
                 }
                 ContactView contactView = new ContactView();
+                List<Contacts> contacts;
                 switch (input)
                 {
                     case 1:
                         //display all contact lists
-                        contactView.Listview();
+                        if (addressBook.ContainsKey(addressBookName))
+                        {
+                            contacts =  addressBook[addressBookName];
+                            contactView.Listview(contacts);
+                        }
                         //Options for user
                         DisplayChoice();
-                        Selection();
+                        Selection(addressBookName);
                         break;
                     case 2:
                         //Add New Contact
-                        contactView.NewContact();
-                        //display contacts count
-                        Console.WriteLine($" Contacts: {ContactView.contactsList.Count}");
-                        //display list
-                        contactView.Listview();
+                        Contacts newContact = contactView.NewContact();
+                        contacts = addressBook[addressBookName];
+                        contacts.Add(newContact);
+                        contactView.Listview(contacts);
                         //Options for user
                         DisplayChoice();
-                        Selection();
+                        Selection(addressBookName);
                         break;
                     case 3:
                         //Edit a contact from list
                         Console.WriteLine("Edit a Contact");
-                        contactView.EditContact();
+                        contacts = addressBook[addressBookName];
+                        contactView.EditContact(contacts);
                         DisplayChoice();
-                        Selection();
+                        Selection(addressBookName);
                         break;
                     case 4:
                         //delete a contact from list
                         Console.WriteLine("Delete a Contact");
-                        contactView.DeleteContact();
+                        contacts = addressBook[addressBookName];
+                        contactView.DeleteContact(contacts);
                         DisplayChoice();
-                        Selection();
+                        Selection(addressBookName);
                         break;
                     case 5:
-                        //adding multiple persons to contact list
-                        Console.WriteLine("Add multiple Persons to contacts.");
-                        contactView.MultipleContact();
-                        DisplayChoice();
-                        Selection();
+                        //exit from Contacts
+                        DisplayChoiceAddressBook();
                         break;
-                    case 6:
-                        //adding multiple Address Book
-                        Console.WriteLine("Add Multiple address books");
-                        Console.WriteLine("Enter name of addressbook");
-                        string name = Console.ReadLine();
-                        multipleAddressBook.AddAddressBook(name);
-                        //multipleAddressBook.DisplayAddressBook();
-                        DisplayChoice();
-                        Selection();
+                    default:
+                        //invalid selection
+                        Console.WriteLine("Invalid input, please try agian!!");
                         break;
-                    case 7:
-                        //view Address Book
-                        Console.WriteLine("View address books");
-                        multipleAddressBook.ViewAddressBooks();
-                        DisplayChoice();
-                        Selection();
-                        break;
-                    case 8:
-                        //exit from program
-                        Console.WriteLine("Exiting you safely...");
-                        Console.WriteLine("Thank you.");
-                        break;                        
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
             }
-
         }
     }
 }

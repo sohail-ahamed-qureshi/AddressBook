@@ -9,66 +9,84 @@ namespace AddressBook
     /// </summary>
     class MultipleAddressBook
     {
-        Dictionary<string, ContactView> dtAddressbook = new Dictionary<string, ContactView>();
-
+        static Dictionary<string, List<Contacts>> dtAddressbook;
         public MultipleAddressBook()
         {
-            dtAddressbook = new Dictionary<string, ContactView>();
+            dtAddressbook = new Dictionary<string, List<Contacts>>();
         }
-
+        /// <summary>
+        /// ability to return addressBook Dictionary
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<string, List<Contacts>> GetAddressBook()
+        {
+            return dtAddressbook;
+        }
         /// <summary>
         /// create a new address book check for name,
         /// if already exists then, wont create new.
         /// </summary>
         /// <param name="name"></param>
-        public void AddAddressBook(string name)
+        public bool AddAddressBook(string name)
         {
             //check for addressbook name
             if (dtAddressbook.ContainsKey(name))
             {
-                Console.WriteLine("Name already exists!!");
+                Console.WriteLine("Name already exists!! \n Choose other Name and try Creating new AddressBook.");
+                return false;
             }
             else
             {
-                ContactView contactView = new ContactView();
-                dtAddressbook.Add(name, contactView);
+                List<Contacts> contactsList = new List<Contacts>();
                 Console.WriteLine("address book created successfully....");
-            } 
-        }
+                Console.WriteLine("Add new Contacts? \n Press Y/N :");
+                char ch = Convert.ToChar(Console.ReadLine());
+                ch = Char.ToUpper(ch);
+                switch (ch)
+                {
+                    case 'Y':
 
+                        ContactView contact = new ContactView();
+                        Contacts newContact = contact.NewContact();
+                        if (newContact != null)
+                        {
+                            contactsList.Add(newContact);
+                            dtAddressbook.Add(name, contactsList);
+                        }
+                        else
+                            Console.WriteLine("Contact Add failed");
+                        break;
+                    case 'N':
+                        dtAddressbook.Add(name, contactsList);
+                        break;
+                }
+                return true;
+            }
+        }
         /// <summary>
         /// view all addressbooks present.
         /// </summary>
-        public void ViewAddressBooks()
+        public string ViewAddressBooks()
         {
-            if(dtAddressbook.Count == 0)
-            {
+            if (dtAddressbook.Count == 0)
                 Console.WriteLine("No AddressBook(s) to Show.");
-            }
-            if(dtAddressbook.Count >= 1)
+            if (dtAddressbook.Count >= 1)
             {
+                Console.WriteLine("Select AddressBook(s):");
                 foreach (var item in dtAddressbook.Keys)
                 {
-                    Console.WriteLine(item);
+                    Console.WriteLine($"Enter name to Select AddressBook : {item}");
+                }
+                string addressBookName = Console.ReadLine();
+                if (dtAddressbook.ContainsKey(addressBookName))
+                    return addressBookName;
+                else
+                {
+                    Console.WriteLine("Invalid Selection made!! \n Try again.");
+                    ViewAddressBooks();
                 }
             }
-        }
-
-        public ContactView GetAddressBook(string name)
-        {
-                return dtAddressbook[name];
-        }
-        /// <summary>
-        /// view the contacts present in addressbook
-        /// </summary>
-        public void DisplayAddressBook()
-        {
-            foreach (KeyValuePair<string, ContactView> item in dtAddressbook)
-            {
-                Console.WriteLine("AddressBook:  "+item.Key );
-                ContactView contactView = item.Value;
-                contactView.Listview();
-            }
+            return null;
         }
     }
 }
