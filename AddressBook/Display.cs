@@ -105,8 +105,8 @@ namespace AddressBook
                         break;
                     case 2:
                         //Add New Contact
-                        Contacts newContact = contactView.NewContact();
                         contacts = addressBook[addressBookName];
+                        Contacts newContact = contactView.NewContact(contacts);
                         contacts.Add(newContact);
                         contactView.Listview(contacts);
                         //Options for user

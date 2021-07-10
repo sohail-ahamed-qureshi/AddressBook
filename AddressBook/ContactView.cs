@@ -7,7 +7,7 @@ namespace AddressBook
     interface IOperationalMethods
     {
         public void Listview(List<Contacts> contactsList);
-        public Contacts NewContact();
+        public Contacts NewContact(List<Contacts> contactsList);
         public void DeleteContact(List<Contacts> contactsList);
         public void EditContact(List<Contacts> contactsList);
     }
@@ -44,12 +44,12 @@ namespace AddressBook
         /// <summary>
         /// New contact method - ask user to enter all details. using console
         /// </summary>
-        public Contacts NewContact()
+        public Contacts NewContact(List<Contacts> contactsList)
         {
             try
             {
                 //global object 'Person3' is used.//
-                CustomInput(Person3);
+                CustomInput(Person3, contactsList);
                 //validating contact details
                 Person3.ValidateContactDetails();
                 //adding contact to list
@@ -136,7 +136,7 @@ namespace AddressBook
                     CustomView(sel, contactsList);
                     Console.WriteLine("Enter new Details");
                     //global object 'Person3' is used.//
-                    CustomInput(Person3);
+                    CustomInput(Person3, contactsList);
                     //validating contact details
                     Person3.ValidateContactDetails();
                     //removing contact
@@ -171,11 +171,20 @@ namespace AddressBook
             Console.WriteLine();
         }
 
-        public void CustomInput(Contacts Person)
+        public void CustomInput(Contacts Person, List<Contacts> contactsList)
         {
             Console.WriteLine("Add a new contact.");
             Console.WriteLine("Enter First Name: ");
             Person.FirstName = Console.ReadLine();
+            //ability to check for duplicate entry of same person in particular addressBook
+            foreach(Contacts contacts in contactsList)
+            {
+                while (contacts.FirstName.Contains(Person.FirstName))
+                {
+                    Console.WriteLine("Name already exists in Contacts \n enter new name: ");
+                    Person.FirstName = Console.ReadLine();
+                }
+            }
             Console.WriteLine("Enter Last Name: ");
             Person.LastName = Console.ReadLine();
             Console.WriteLine("Enter Address: ");

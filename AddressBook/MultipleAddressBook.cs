@@ -47,7 +47,7 @@ namespace AddressBook
                     case 'Y':
 
                         ContactView contact = new ContactView();
-                        Contacts newContact = contact.NewContact();
+                        Contacts newContact = contact.NewContact(contactsList);
                         if (newContact != null)
                         {
                             contactsList.Add(newContact);
