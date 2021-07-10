@@ -17,11 +17,13 @@ namespace AddressBook
         {
 
             Console.WriteLine("Press 1. to Add New Addressbook");
-            Console.WriteLine("Press 2. to View All Addressbooks");
+            Console.WriteLine("Press 2. to perform CRUD Operations in Addressbooks");
             Console.WriteLine("Press 3. Search Contacts By City ");
-            Console.WriteLine("Press 4. to Exit Program");
+            Console.WriteLine("Press 4. View Contacts By City ");
+            Console.WriteLine("Press 5. View Contacts By States ");
+            Console.WriteLine("Press 6. to Exit Program");
             int mainInput = Convert.ToInt32(Console.ReadLine());
-            while (mainInput > 4 || mainInput < 0)
+            while (mainInput > 6 || mainInput < 0)
             {
                 Console.WriteLine("invalid input");
                 Console.WriteLine("Enter a valid input ");
@@ -50,14 +52,30 @@ namespace AddressBook
                     Selection(addressBookName);
                     break;
                 case 3:
-                    //Search the contacts according to city
-                    Console.WriteLine("Enter the Name of city:");
+                    //Search the contacts according to city or state
+                    Console.WriteLine("Enter the Name of City or State:");
                     string cityName = Console.ReadLine();
-                    //search method here
+                    while( cityName == string.Empty || cityName == " ")
+                    {
+                        Console.WriteLine("City or State name cannot be empty!! \nEnter again: ");
+                        cityName = Console.ReadLine();
+                    }
                     multipleAddressBook.SearchContactsByCity(cityName);
                     DisplayChoiceAddressBook();
                     break;
                 case 4:
+                    //View all contacts from cities
+                    Console.WriteLine("All the Contacts from Cities");
+                    multipleAddressBook.DisplayContactsByCities();
+                    DisplayChoiceAddressBook();
+                    break;
+                case 5:
+                    //View all contacts from States
+                    Console.WriteLine("All the Contacts from Cities");
+                    multipleAddressBook.DisplayContactsByStates();
+                    DisplayChoiceAddressBook();
+                    break;
+                case 6:
                     //exit the program
                     Console.WriteLine("Exiting you safely...");
                     Console.WriteLine("Thank you.");

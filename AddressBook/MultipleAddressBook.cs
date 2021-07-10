@@ -10,9 +10,13 @@ namespace AddressBook
     class MultipleAddressBook
     {
         static Dictionary<string, List<Contacts>> dtAddressbook;
+        Dictionary<string, List<Contacts>> dtCities;
+        Dictionary<string, List<Contacts>> dtStates;
         public MultipleAddressBook()
         {
             dtAddressbook = new Dictionary<string, List<Contacts>>();
+            dtCities = new Dictionary<string, List<Contacts>>();
+            dtStates = new Dictionary<string, List<Contacts>>();
         }
         /// <summary>
         /// ability to return addressBook Dictionary
@@ -53,6 +57,16 @@ namespace AddressBook
                             contactsList.Add(newContact);
                             dtAddressbook.Add(name, contactsList);
                         }
+                        //adding list to cities dictionary
+                        if (newContact.City != null)
+                        {
+                            dtCities.Add(newContact.City, contactsList);
+                        }
+                        //adding contacts to States Dictionary
+                        if (newContact.State != null)
+                        {
+                            dtStates.Add(newContact.State, contactsList);
+                        }
                         else
                             Console.WriteLine("Contact Add failed");
                         break;
@@ -88,20 +102,78 @@ namespace AddressBook
             }
             return null;
         }
-
-        public void SearchContactsByCity(string cityName)
+        /// <summary>
+        /// view Contacts by Cities
+        /// </summary>
+        public void DisplayContactsByCities()
         {
-            foreach (KeyValuePair<string, List<Contacts>> item in dtAddressbook)
+            if (dtAddressbook.Count == 0)
+                Console.WriteLine("No AddressBook(s) to Show.");
+            if (dtAddressbook.Count >= 1)
             {
-                Console.WriteLine("Name of AddressBook: "+item.Key);
-                foreach (Contacts items in item.Value)
+                foreach (KeyValuePair<string, List<Contacts>> addressBooks in dtCities)
                 {
-                    if(items.City.Contains(cityName)){
-                        Console.WriteLine($"Name: {items.FirstName +" "+items.LastName}, Phone Number: {items.PhoneNumber}, City: {items.City}");
+                    Console.WriteLine("Contacts From City: " + addressBooks.Key);
+                    foreach (Contacts items in addressBooks.Value)
+                    {
+                        Console.WriteLine($"Name: {items.FirstName + " " + items.LastName}, Phone Number: {items.PhoneNumber}, City: {items.City}, State: {items.State}" +
+                            $"\n Address: {items.Address}, Zipcode: {items.ZipCode}, Email: {items.Email}");
                         Console.WriteLine();
                     }
                 }
             }
+        }
+        /// <summary>
+        /// view Contacts by states
+        /// </summary>
+        public void DisplayContactsByStates()
+        {
+            if (dtAddressbook.Count == 0)
+                Console.WriteLine("No AddressBook(s) to Show.");
+            if (dtAddressbook.Count >= 1)
+            {
+                foreach (KeyValuePair<string, List<Contacts>> addressBooks in dtStates)
+                {
+                    Console.WriteLine("Contacts from State: " + addressBooks.Key);
+                    foreach (Contacts items in addressBooks.Value)
+                    {
+                        Console.WriteLine($"Name: {items.FirstName + " " + items.LastName}, Phone Number: {items.PhoneNumber}, City: {items.City}, State: {items.State}" +
+                            $"\n Address: {items.Address}, Zipcode: {items.ZipCode}, Email: {items.Email}");
+                        Console.WriteLine();
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// ability to search contacts in multiple addressBooks using city or state name
+        /// </summary>
+        /// <param name="cityName"></param>
+        public void SearchContactsByCity(string cityName)
+        {
+            if (dtAddressbook.Count == 0)
+            {
+                Console.WriteLine("No Contacts to display");
+            }
+            if (dtAddressbook.Count >= 1)
+            {
+                foreach (KeyValuePair<string, List<Contacts>> item in dtAddressbook)
+                {
+                    Console.WriteLine("Name of AddressBook: " + item.Key);
+                    foreach (Contacts items in item.Value)
+                    {
+                        if (items.City.Contains(cityName) || items.State.Contains(cityName))
+                        {
+                            Console.WriteLine($"Name: {items.FirstName + " " + items.LastName}, Phone Number: {items.PhoneNumber}, City: {items.City}, State: {items.State}");
+                            Console.WriteLine();
+                        }
+                        else
+                        {
+                            Console.WriteLine("No Contacts Found");
+                        }
+                    }
+                }
+            }
+
         }
     }
 }
