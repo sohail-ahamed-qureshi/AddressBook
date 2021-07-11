@@ -46,7 +46,7 @@ namespace AddressBook
                 case 2:
                     //view addressBook
                     addressBookName = multipleAddressBook.ViewAddressBooks();
-                    if(addressBookName == null)
+                    if (addressBookName == null)
                         DisplayChoiceAddressBook();
                     DisplayChoice();
                     Selection(addressBookName);
@@ -55,7 +55,7 @@ namespace AddressBook
                     //Search the contacts according to city or state
                     Console.WriteLine("Enter the Name of City or State:");
                     string cityName = Console.ReadLine();
-                    while( cityName == string.Empty || cityName == " ")
+                    while (cityName == string.Empty || cityName == " ")
                     {
                         Console.WriteLine("City or State name cannot be empty!! \nEnter again: ");
                         cityName = Console.ReadLine();
@@ -90,13 +90,13 @@ namespace AddressBook
         /// </summary>
         public void DisplayChoice()
         {
-                Console.WriteLine();
-                Console.WriteLine("press 1 to view Contact list.");
-                Console.WriteLine("press 2 to Add new Contact to list.");
-                Console.WriteLine("press 3 to Edit Contact in list.");
-                Console.WriteLine("press 4 to Delete a Contact from list.");
-                Console.WriteLine("press 5 Sort Contacts");
-                Console.WriteLine("press 6 to go back.");
+            Console.WriteLine();
+            Console.WriteLine("press 1 to view Contact list.");
+            Console.WriteLine("press 2 to Add new Contact to list.");
+            Console.WriteLine("press 3 to Edit Contact in list.");
+            Console.WriteLine("press 4 to Delete a Contact from list.");
+            Console.WriteLine("press 5 Sort Contacts");
+            Console.WriteLine("press 6 to go back.");
         }
         /// <summary>
         /// switch case statement process for functionality performs crud operations for contacts
@@ -124,7 +124,7 @@ namespace AddressBook
                         //display all contact lists
                         if (addressBook.ContainsKey(addressBookName))
                         {
-                            contacts =  addressBook[addressBookName];
+                            contacts = addressBook[addressBookName];
                             contactView.Listview(contacts);
                         }
                         //Options for user
@@ -159,9 +159,12 @@ namespace AddressBook
                         Selection(addressBookName);
                         break;
                     case 5:
-                        //Sort Contacts
+                        //Sort Contacts By Person's Name, City, State, Zipcode
                         contacts = addressBook[addressBookName];
                         multipleAddressBook.SortAddressBookByName(contacts);
+                        multipleAddressBook.SortAddressBookByCity(contacts);
+                        multipleAddressBook.SortAddressBookByState(contacts);
+                        multipleAddressBook.SortAddressBookByZipcode(contacts);
                         DisplayChoice();
                         Selection(addressBookName);
                         break;
