@@ -50,7 +50,6 @@ namespace AddressBook
                 switch (ch)
                 {
                     case 'Y':
-
                         ContactView contact = new ContactView();
                         Contacts newContact = contact.NewContact(contactsList);
                         if (newContact != null)

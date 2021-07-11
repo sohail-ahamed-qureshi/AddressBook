@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace AddressBook
@@ -177,7 +178,7 @@ namespace AddressBook
             Console.WriteLine("Enter First Name: ");
             Person.FirstName = Console.ReadLine();
             //ability to check for duplicate entry of same person in particular addressBook
-            foreach(Contacts contacts in contactsList)
+            foreach (Contacts contacts in contactsList)
             {
                 while (contacts.FirstName.Contains(Person.FirstName))
                 {
@@ -225,6 +226,63 @@ namespace AddressBook
             }
             Console.WriteLine("Enter Email: ");
             Person.Email = Console.ReadLine();
+        }
+        /// <summary>
+        /// ability to import contacts from a file
+        /// </summary>
+        /// <param name="addressBookName"></param>
+        /// <param name="addressBook"></param>
+        public void ImportContacts(string addressBookName, Dictionary<string, List<Contacts>> addressBook)
+        {
+            List<Contacts> contactsList = addressBook[addressBookName];
+            string filepath = @"C:\Users\Admin\Desktop\BridgeLabs Assignments\AddressBook\AddressBook\AddressBook\Contacts.txt";
+            if (File.Exists(filepath))
+            {
+                string[] contactsArray = File.ReadAllLines(filepath);
+                for (int i = 1; i < contactsArray.Length; i++)
+                {
+                    Contacts contact = new Contacts();
+                    string[] data = contactsArray[i].Split(',');
+                    contact.FirstName = data[0];
+                    contact.LastName = data[1];
+                    contact.Address = data[2];
+                    contact.City = data[3];
+                    contact.State = data[4];
+                    contact.ZipCode = Convert.ToInt32(data[5]);
+                    contact.PhoneNumber = Convert.ToInt64(data[6]);
+                    contact.Email = data[7];
+                    contact.ValidateContactDetails();
+                    contactsList.Add(contact);
+                }
+                addressBook[addressBookName] = contactsList;
+            }
+            else
+            {
+                Console.WriteLine("File Not Found");
+            }
+        }
+        /// <summary>
+        /// ability to Export contacts to a file
+        /// </summary>
+        /// <param name="contactsList"></param>
+        public void ExportContacts(List<Contacts> contactsList)
+        {
+            string[] contactArray = new string[contactsList.Count];
+            string filepath = @"C:\Users\Admin\Desktop\BridgeLabs Assignments\AddressBook\AddressBook\AddressBook\Contacts.txt";
+            if (File.Exists(filepath))
+            {
+                for (int i = 0; i < contactsList.Count; i++)
+                {
+                    Contacts contact = contactsList[i];
+                    contactArray[i] = contact.FirstName + ',' + contact.LastName + ',' + contact.Address + ',' + contact.City + ',' + contact.State + ',' + Convert.ToString(contact.ZipCode) + ',' + Convert.ToString(contact.PhoneNumber) + ',' + contact.Email;
+                }
+                File.AppendAllLines(filepath, contactArray);
+            }
+            else
+            {
+                Console.WriteLine("File not found");
+            }
+        
         }
     }
 }
