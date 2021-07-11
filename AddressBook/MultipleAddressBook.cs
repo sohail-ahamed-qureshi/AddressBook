@@ -56,16 +56,8 @@ namespace AddressBook
                         {
                             contactsList.Add(newContact);
                             dtAddressbook.Add(name, contactsList);
-                        }
-                        //adding list to cities dictionary
-                        if (newContact.City != null)
-                        {
-                            dtCities.Add(newContact.City, contactsList);
-                        }
-                        //adding contacts to States Dictionary
-                        if (newContact.State != null)
-                        {
-                            dtStates.Add(newContact.State, contactsList);
+                            //utility to add contact person to city and state dictionary
+                            UtilityToAddContactToCityState(newContact);
                         }
                         else
                             Console.WriteLine("Contact Add failed");
@@ -77,6 +69,42 @@ namespace AddressBook
                 return true;
             }
         }
+        /// <summary>
+        /// an uitility to add contacts to city and state dictionary
+        /// </summary>
+        /// <param name="newContact"></param>
+        public void UtilityToAddContactToCityState(Contacts newContact)
+        {
+            List<Contacts> cityList = new List<Contacts>();
+            List<Contacts> stateList = new List<Contacts>();
+            //adding list to cities dictionary
+            //if city key already exists then add to its list
+            if (dtCities.ContainsKey(newContact.City))
+            {
+                dtCities[newContact.City].Add(newContact);
+                Console.WriteLine($"Contact Added to CityList: {newContact.City}");
+            }
+            //if city key doesn't exists then add new key and list
+            if (newContact.City != null && !dtCities.ContainsKey(newContact.City))
+            {
+                cityList.Add(newContact);
+                dtCities.Add(newContact.City, cityList);
+                Console.WriteLine("New City Detected, Added to CityList");
+            }
+            //adding contacts to States Dictionary
+            if (dtStates.ContainsKey(newContact.State))
+            {
+                dtStates[newContact.State].Add(newContact);
+                Console.WriteLine($"Contact Added to CityList: {newContact.State}");
+            }
+            if (newContact.State != null && !dtStates.ContainsKey(newContact.State))
+            {
+                stateList.Add(newContact);
+                dtStates.Add(newContact.State, stateList);
+                Console.WriteLine("New State Detected, Added to StateList");
+            }   
+        }
+
         /// <summary>
         /// view all addressbooks present.
         /// </summary>
@@ -107,9 +135,9 @@ namespace AddressBook
         /// </summary>
         public void DisplayContactsByCities()
         {
-            if (dtAddressbook.Count == 0)
+            if (dtCities.Count == 0)
                 Console.WriteLine("No AddressBook(s) to Show.");
-            if (dtAddressbook.Count >= 1)
+            if (dtCities.Count >= 1)
             {
                 foreach (KeyValuePair<string, List<Contacts>> addressBooks in dtCities)
                 {
@@ -123,14 +151,15 @@ namespace AddressBook
                 }
             }
         }
+
         /// <summary>
         /// view Contacts by states
         /// </summary>
         public void DisplayContactsByStates()
         {
-            if (dtAddressbook.Count == 0)
+            if (dtStates.Count == 0)
                 Console.WriteLine("No AddressBook(s) to Show.");
-            if (dtAddressbook.Count >= 1)
+            if (dtStates.Count >= 1)
             {
                 foreach (KeyValuePair<string, List<Contacts>> addressBooks in dtStates)
                 {
@@ -165,10 +194,6 @@ namespace AddressBook
                         {
                             Console.WriteLine($"Name: {items.FirstName + " " + items.LastName}, Phone Number: {items.PhoneNumber}, City: {items.City}, State: {items.State}");
                             Console.WriteLine();
-                        }
-                        else
-                        {
-                            Console.WriteLine("No Contacts Found");
                         }
                     }
                 }

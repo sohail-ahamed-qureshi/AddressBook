@@ -135,6 +135,7 @@ namespace AddressBook
                         contacts = addressBook[addressBookName];
                         Contacts newContact = contactView.NewContact(contacts);
                         contacts.Add(newContact);
+                        multipleAddressBook.UtilityToAddContactToCityState(newContact);
                         contactView.Listview(contacts);
                         //Options for user
                         DisplayChoice();
