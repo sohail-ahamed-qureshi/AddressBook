@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace AddressBook
 {
@@ -95,7 +96,7 @@ namespace AddressBook
             if (dtStates.ContainsKey(newContact.State))
             {
                 dtStates[newContact.State].Add(newContact);
-                Console.WriteLine($"Contact Added to CityList: {newContact.State}");
+                Console.WriteLine($"Contact Added to StateList: {newContact.State}");
             }
             if (newContact.State != null && !dtStates.ContainsKey(newContact.State))
             {
@@ -130,6 +131,18 @@ namespace AddressBook
             }
             return null;
         }
+        /// <summary>
+        /// ability to sort the contacts in list by Person's name
+        /// </summary>
+        /// <param name="contactsList"></param>
+        public void SortAddressBookByName(List<Contacts> contactsList)
+        {
+            ContactView view = new ContactView();
+            contactsList.Sort((contact1, contact2) => contact1.FirstName.CompareTo(contact2.FirstName));
+            Console.WriteLine("Sorted Contacts By Name: ");
+            view.Listview(contactsList);
+        }
+
         /// <summary>
         /// view Contacts by Cities
         /// </summary>

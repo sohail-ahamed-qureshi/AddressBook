@@ -5,7 +5,7 @@ namespace AddressBook
     class Program
     {
         /// <summary>
-        /// Address book program - UC6 able to Add multiple addressbook with unique name for addressBook
+        /// Address book program
         /// </summary>
         /// <param name="args"></param>
         static void Main(string[] args)
