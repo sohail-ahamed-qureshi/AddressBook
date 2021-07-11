@@ -276,7 +276,8 @@ namespace AddressBook
                     Contacts contact = contactsList[i];
                     contactArray[i] = contact.FirstName + ',' + contact.LastName + ',' + contact.Address + ',' + contact.City + ',' + contact.State + ',' + Convert.ToString(contact.ZipCode) + ',' + Convert.ToString(contact.PhoneNumber) + ',' + contact.Email;
                 }
-                File.AppendAllLines(filepath, contactArray);
+                
+                File.AppendAllLines(filepath,contactArray, Encoding.UTF8) ;
             }
             else
             {
