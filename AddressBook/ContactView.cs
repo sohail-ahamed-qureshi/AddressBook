@@ -406,6 +406,40 @@ namespace AddressBook
             }
         }
         /// <summary>
+        /// ability to get count by city from database
+        /// </summary>
+        public void GetCountByCity()
+        {
+            string connectionString = @"Data Source=s;Initial Catalog=AddressBookDatabase;Integrated Security=True;Pooling=False";
+            SqlConnection connection = new SqlConnection(connectionString);
+            try
+            {
+                using (connection)
+                {
+                    string spName = "dbo.SpGetCountByCity";
+                    SqlCommand command = new SqlCommand(spName, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    connection.Open();
+                    SqlDataReader dr = command.ExecuteReader();
+                    int count = 0; string city;
+                    while (dr.Read())
+                    {
+                        count = dr.GetInt32(0);
+                        city = dr.GetString(1);
+                        Console.WriteLine($"City: {city}, No of Contacts: {count}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
+        /// <summary>
         /// ability to view contacts that were added to database at particular period
         /// </summary>
         /// <param name="date"></param>
