@@ -100,7 +100,8 @@ namespace AddressBook
             Console.WriteLine("press 8 to get contact from json file");
             Console.WriteLine("press 9 to set contascts to json file.");
             Console.WriteLine("press 10 to get contacts from database.");
-            Console.WriteLine("press 11 to go back.");
+            Console.WriteLine("press 11 to view contacts from database by date.");
+            Console.WriteLine("press 12 to go back.");
         }
         /// <summary>
         /// switch case statement process for functionality performs crud operations for contacts
@@ -113,7 +114,7 @@ namespace AddressBook
                 Dictionary<string, List<Contacts>> addressBook = multipleAddressBook.GetAddressBook();
                 //validation for input.
                 int input = Convert.ToInt32(Console.ReadLine());
-                while (input > 11 || input <= 0)
+                while (input > 12 || input <= 0)
                 {
                     Console.WriteLine("invalid input");
                     Console.WriteLine("Enter a valid input ");
@@ -209,6 +210,20 @@ namespace AddressBook
                         Selection(addressBookName);
                         break;
                     case 11:
+                        //get contacts by date from database
+                        Console.WriteLine("Enter date in YYYY-MM-DD format: ");
+                        Console.WriteLine("Enter Year (YYYY):");
+                        string year = Console.ReadLine();
+                        Console.WriteLine("Enter Month (MM):");
+                        string month =(Console.ReadLine());
+                        Console.WriteLine("Enter Day (DD):");
+                        string day = Console.ReadLine();
+                        string date = $"{year}-{month}-{day}";
+                        contactView.GetContactsFromDataBase(date);
+                        DisplayChoice();
+                        Selection(addressBookName);
+                        break;
+                    case 12:
                         //exit from Contact
                         DisplayChoiceAddressBook();
                         break;

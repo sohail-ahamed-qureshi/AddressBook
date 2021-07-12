@@ -405,5 +405,61 @@ namespace AddressBook
                 connection.Close();
             }
         }
+        /// <summary>
+        /// ability to view contacts that were added to database at particular period
+        /// </summary>
+        /// <param name="date"></param>
+        public void GetContactsFromDataBase(string date)
+        {
+            string connectionString = @"Data Source=s;Initial Catalog=AddressBookDatabase;Integrated Security=True;Pooling=False";
+            SqlConnection connection = new SqlConnection(connectionString);
+            List<Contacts> contactList = new List<Contacts>();
+            try
+            {
+                using (connection)
+                {
+                    string spName = "dbo.SpGetContactByDate";
+                    SqlCommand command = new SqlCommand(spName, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    connection.Open();
+                    command.Parameters.AddWithValue("@date", date);
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        Contacts contact = new Contacts
+                        {
+                            FirstName = dr.GetString(0),
+                            LastName = dr.GetString(1),
+                            Address = dr.GetString(2),
+                            City = dr.GetString(3),
+                            State = dr.GetString(4),
+                            ZipCode = dr.GetInt32(5),
+                            PhoneNumber = dr.GetInt64(6),
+                            Email = dr.GetString(7)
+                        };
+                        contactList.Add(contact);
+                    }
+                    Console.WriteLine($"Contacts added within {date}: ");
+                    Console.WriteLine();
+                    if(contactList.Count == 0)
+                    {
+                        Console.WriteLine("no records found");
+                    }
+                    if (contactList.Count >= 1)
+                    {
+                        Console.WriteLine($"{contactList.Count} records found");
+                        Listview(contactList);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
+        }
     }
 }
