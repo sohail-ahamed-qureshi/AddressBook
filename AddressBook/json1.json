@@ -1,0 +1,34 @@
+{
+  "contacts": [
+    {
+      "FirstName": "sohail",
+      "LastName": "ahamed",
+      "Address": "somewhere",
+      "City": "hospet",
+      "State": "karnataka",
+      "ZipCode": 12345,
+      "PhoneNumber": 1234567890,
+      "Email": "sohailqureshi82@gmail.com"
+    },
+    {
+      "FirstName": "shubham",
+      "LastName": "kumar",
+      "Address": "some Address",
+      "City": "Some city",
+      "State": "Some State",
+      "ZipCode": 54321,
+      "PhoneNumber": 987654321,
+      "Email": "kumarshumbam@gmail.com"
+    },
+    {
+      "FirstName": "afadf",
+      "LastName": "afdaf",
+      "Address": "adsfafd",
+      "City": "asdfasdf",
+      "State": "adfadsf",
+      "ZipCode": 13241,
+      "PhoneNumber": 13414143,
+      "Email": "faafafaf"
+    }
+  ]
+}

@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressBook", "AddressBook.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Demo", "..\..\..\Demo\Demo\Demo.csproj", "{586B59A0-E735-497F-9D6B-EC6DC16B3BE1}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestProject1", "..\..\..\Demo\TestProject1\TestProject1.csproj", "{B294746C-280D-43F7-AB61-7FC0069D47F6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileIODemo", "..\..\..\DemoFileIO\FileIODemo\FileIODemo.csproj", "{F5D7F73E-62C3-4429-B2E8-2179A6FC0105}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{586B59A0-E735-497F-9D6B-EC6DC16B3BE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{586B59A0-E735-497F-9D6B-EC6DC16B3BE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{586B59A0-E735-497F-9D6B-EC6DC16B3BE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B294746C-280D-43F7-AB61-7FC0069D47F6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B294746C-280D-43F7-AB61-7FC0069D47F6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B294746C-280D-43F7-AB61-7FC0069D47F6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B294746C-280D-43F7-AB61-7FC0069D47F6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5D7F73E-62C3-4429-B2E8-2179A6FC0105}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5D7F73E-62C3-4429-B2E8-2179A6FC0105}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5D7F73E-62C3-4429-B2E8-2179A6FC0105}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5D7F73E-62C3-4429-B2E8-2179A6FC0105}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
