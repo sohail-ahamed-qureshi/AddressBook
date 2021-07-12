@@ -138,6 +138,8 @@ namespace AddressBook
                     }
                     Console.WriteLine("-------Before editing-------");
                     CustomView(sel, contactsList);
+                    //recording the name to be updated in database
+                    string name = contactsList[sel].FirstName;
                     Console.WriteLine("Enter new Details");
                     //global object 'Person3' is used.//
                     CustomInput(Person3, contactsList);
@@ -147,6 +149,8 @@ namespace AddressBook
                     contactsList.RemoveAt(sel);
                     //adding new details of contact at list
                     contactsList.Insert(sel, Person3);
+                    //passing name and the contact to be updated
+                    EditContactDatabase(name, Person3);
                     Console.WriteLine();
                     Console.WriteLine("Contact edit successful!!");
                     Console.WriteLine("-------After editing-------");
@@ -156,6 +160,46 @@ namespace AddressBook
             catch (Exception e)
             {
                 Console.WriteLine(e.Message);
+            }
+        }
+        /// <summary>
+        /// ability to update contact in database
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="contact"></param>
+        private void EditContactDatabase(string name, Contacts contact)
+        {
+            string connectionString = @"Data Source=s;Initial Catalog=AddressBookDatabase;Integrated Security=True;Pooling=False";
+            SqlConnection connection = new SqlConnection(connectionString);
+            try
+            {
+                using (connection)
+                {
+                    string spName = "dbo.SpUpdateContact";
+                    SqlCommand command = new SqlCommand(spName, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@name", name);
+                    command.Parameters.AddWithValue("@firstName", contact.FirstName);
+                    command.Parameters.AddWithValue("@lastName", contact.LastName);
+                    command.Parameters.AddWithValue("@address", contact.Address);
+                    command.Parameters.AddWithValue("@city", contact.City);
+                    command.Parameters.AddWithValue("@state", contact.State);
+                    command.Parameters.AddWithValue("@zip", contact.ZipCode);
+                    command.Parameters.AddWithValue("@phoneNumber", contact.PhoneNumber);
+                    command.Parameters.AddWithValue("@email", contact.Email);
+                    connection.Open();
+                    int result = command.ExecuteNonQuery();
+                    string outputMessage = result == 1 ? "Contact Updaeted SuccessFully" : "Contact Update failed";
+                    Console.WriteLine(outputMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
             }
         }
 
