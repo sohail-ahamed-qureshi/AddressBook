@@ -210,7 +210,7 @@ namespace AddressBook
                         Selection(addressBookName);
                         break;
                     case 11:
-                        //exit from Contacts
+                        //exit from Contact
                         DisplayChoiceAddressBook();
                         break;
                     default:
