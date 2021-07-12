@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Text;
 using static AddressBook.Contacts;
@@ -316,6 +317,49 @@ namespace AddressBook
             string contactdata = JsonConvert.SerializeObject(root, Formatting.Indented);
             File.WriteAllText(filepath, contactdata);
             Console.WriteLine("Emport successfull");
+        }
+        /// <summary>
+        /// ability to retireve contacts from database
+        /// </summary>
+        /// <param name="contactList"></param>
+        public void GetContactsFromDataBase(List<Contacts> contactList)
+        {
+            string connectionString = @"Data Source=s;Initial Catalog=AddressBookDatabase;Integrated Security=True;Pooling=False";
+            SqlConnection connection = new SqlConnection(connectionString);
+            try
+            {
+                using (connection)
+                {
+                    string spName = "dbo.SpRetrieveContacts";
+                    SqlCommand command = new SqlCommand(spName, connection);
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    connection.Open();
+                    SqlDataReader dr = command.ExecuteReader();
+                    while (dr.Read())
+                    {
+                        Contacts contact = new Contacts
+                        {
+                            FirstName = dr.GetString(0),
+                            LastName = dr.GetString(1),
+                            Address = dr.GetString(2),
+                            City = dr.GetString(3),
+                            State = dr.GetString(4),
+                            ZipCode = dr.GetInt32(5),
+                            PhoneNumber = dr.GetInt64(6),
+                            Email = dr.GetString(7)
+                        };
+                        contactList.Add(contact);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            finally
+            {
+                connection.Close();
+            }
         }
     }
 }
